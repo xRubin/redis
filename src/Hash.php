@@ -94,7 +94,7 @@ class Hash extends Entity
     }
 
     /**
-     * @return int
+     * @return int|bool
      */
     public function length()
     {

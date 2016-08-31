@@ -8,14 +8,6 @@ namespace RedisWrapper;
 class Counter extends Entity
 {
     /**
-     * @return int
-     */
-    public function clear()
-    {
-        return $this->getConnection()->getClient()->del($this->getKey());
-    }
-
-    /**
      * @param int $value
      * @return int
      */
@@ -39,6 +31,15 @@ class Counter extends Entity
     public function getValue()
     {
         return (int)$this->getConnection()->getClient()->get($this->getKey());
+    }
+
+    /**
+     * @param int $value
+     * @return bool
+     */
+    public function setValue($value)
+    {
+        return $this->getConnection()->getClient()->set($this->getKey(), $value);
     }
 
     /**

@@ -42,4 +42,12 @@ abstract class Entity
     {
         return $this->_connection;
     }
+
+    /**
+     * @return int
+     */
+    public function clear()
+    {
+        return $this->getConnection()->getClient()->del($this->getKey());
+    }
 }
