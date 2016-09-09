@@ -1,5 +1,5 @@
 {
-  "name": "redis-wrapper",
+  "name": "rubin/redis",
   "keywords": ["redis", "cache", "counter"],
   "authors": [
     {
