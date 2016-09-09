@@ -1,5 +1,5 @@
 {
-  "name": "xRubin/RedisWrapper",
+  "name": "redis-wrapper",
   "keywords": ["redis", "cache", "counter"],
   "authors": [
     {
