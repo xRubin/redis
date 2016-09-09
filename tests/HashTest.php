@@ -65,6 +65,6 @@ class HashTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(1, $result);
         $this->assertFalse($hash->getConnection()->getClient()->exists($hash->getKey()));
-        $this->assertFalse($hash->length());
+        $this->assertEquals(0, $hash->length());
     }
 }

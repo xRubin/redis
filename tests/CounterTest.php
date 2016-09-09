@@ -130,8 +130,8 @@ class CounterTest extends PHPUnit_Framework_TestCase
         $diff = mt_rand(100, 999);
         $result = $counter->decrement($diff);
 
-        $this->assertEquals($value + $diff, $result);
-        $this->assertEquals($value + $diff, $counter->getValue());
+        $this->assertEquals($value - $diff, $result);
+        $this->assertEquals($value - $diff, $counter->getValue());
 
         return $counter;
     }
@@ -165,8 +165,8 @@ class CounterTest extends PHPUnit_Framework_TestCase
         $diff = - mt_rand(100, 999);
         $result = $counter->decrement($diff);
 
-        $this->assertEquals($value + $diff, $result);
-        $this->assertEquals($value + $diff, $counter->getValue());
+        $this->assertEquals($value - $diff, $result);
+        $this->assertEquals($value - $diff, $counter->getValue());
 
         return $counter;
     }
