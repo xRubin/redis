@@ -1,6 +1,6 @@
 {
   "name": "rubin/redis",
-  "keywords": ["redis", "cache", "counter"],
+  "keywords": ["redis", "cache", "counter", "hash", "set"],
   "authors": [
     {
       "name": "Shashurin Roman",
@@ -13,6 +13,7 @@
     }
   },
   "require": {
+    "php": ">=5.6.1",
     "ext-redis": "^2.2.4"
   },
   "require-dev": {
