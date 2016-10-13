@@ -8,21 +8,21 @@ namespace RedisWrapper;
 class Set extends Entity
 {
     /**
-     * @param string $value
+     * @param string[] ...$values
      * @return int
      */
-    public function add($value)
+    public function add(...$values)
     {
-        return $this->getConnection()->getClient()->sAdd($this->getKey(), $value);
+        return $this->getConnection()->getClient()->sAdd($this->getKey(), ...$values);
     }
 
     /**
-     * @param string $value
+     * @param string[] ...$values
      * @return int
      */
-    public function remove($value)
+    public function remove(...$values)
     {
-        return $this->getConnection()->getClient()->sRem($this->getKey(), $value);
+        return $this->getConnection()->getClient()->sRem($this->getKey(), ...$values);
     }
 
     /**

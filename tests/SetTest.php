@@ -11,7 +11,7 @@ class SetTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return \RedisWrapper\Hash
+     * @return \RedisWrapper\Set
      */
     public function testAssignment()
     {
