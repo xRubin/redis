@@ -1,11 +1,13 @@
 <?php
 namespace RedisWrapper;
 
+use RedisWrapper\Interfaces;
+
 /**
  * Class Counter
  * @package RedisWrapper
  */
-class Counter extends Entity
+class Counter extends Entity implements Interfaces\Counter
 {
     /**
      * @param int $value

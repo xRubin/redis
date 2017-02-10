@@ -1,12 +1,14 @@
 <?php
 namespace RedisWrapper;
 
+use RedisWrapper\Interfaces;
+use RedisWrapper\Exceptions;
+
 /**
  * Class Connection
- *
  * @package RedisWrapper
  */
-class Connection
+class Connection implements Interfaces\Connection
 {
     /**
      * @var \Redis
@@ -35,21 +37,25 @@ class Connection
 
     /**
      * @param   string $password
-     * @throws \ErrorException
+     * @throws  Exceptions\AuthenticationException
+     * @return  bool
      */
     public function auth($password)
     {
         if ($this->getClient()->auth($password) === false) {
-            throw new \ErrorException('Redis authentication failed!');
+            throw new Exceptions\AuthenticationException('Redis authentication failed!');
         }
+
+        return true;
     }
 
     /**
      * @param integer $dbIndex
+     * @return  bool
      */
     public function select($dbIndex)
     {
-        $this->getClient()->select($dbIndex);
+        return $this->getClient()->select($dbIndex);
     }
 
     /**
@@ -59,6 +65,6 @@ class Connection
      */
     public function setOption($name, $value)
     {
-        $this->getClient()->setOption($name, $value);
+        return $this->getClient()->setOption($name, $value);
     }
 }

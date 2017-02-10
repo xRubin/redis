@@ -1,11 +1,12 @@
 <?php
 namespace RedisWrapper;
 
+use RedisWrapper\Interfaces;
 /**
  * Class SortedSet
  * @package RedisWrapper
  */
-class SortedSet extends Entity
+class SortedSet extends Entity implements Interfaces\SortedSet
 {
     /**
      * @example
@@ -57,7 +58,7 @@ class SortedSet extends Entity
      * @param mixed $end
      * @return int
      */
-    public function count($start = '-inf', $end = '+inf')
+    public function count($start = self::INFINUM_MIN, $end = self::INFINUM_MAX)
     {
         return $this->getConnection()->getClient()->zCount($this->getKey(), $start, $end);
     }
@@ -97,9 +98,9 @@ class SortedSet extends Entity
      * @return  array
      * @example
      * <pre>
-     * $sortedSet->range('key1', 0, -1); // array('val0', 'val2', 'val10')
+     * $sortedSet->range(0, -1); // array('val0', 'val2', 'val10')
      * // with scores
-     * $sortedSet->zRange('key1', 0, -1, true); // array('val0' => 0, 'val2' => 2, 'val10' => 10)
+     * $sortedSet->zRange(0, -1, true); // array('val0' => 0, 'val2' => 2, 'val10' => 10)
      * </pre>
      */
     public function range($start, $end, $withScores = null)
@@ -156,23 +157,23 @@ class SortedSet extends Entity
 
 
     /**
-     * @param SortedSet $destination
+     * @param Interfaces\SortedSet $destination
      * @param array $data
      * @param string $aggregateFunction
      * @return int
      */
-    public function intersectStore(SortedSet $destination, array $data, $aggregateFunction = 'SUM')
+    public function intersectStore(Interfaces\SortedSet $destination, array $data, $aggregateFunction = self::AGGREGATE_SUM)
     {
         return $this->getConnection()->getClient()->zInter($destination->getKey(), array_keys($data), array_values($data), $aggregateFunction);
     }
 
     /**
-     * @param SortedSet $destination
+     * @param Interfaces\SortedSet $destination
      * @param array $data
      * @param string $aggregateFunction
      * @return int
      */
-    public function unionStore(SortedSet $destination, array $data, $aggregateFunction = 'SUM')
+    public function unionStore(Interfaces\SortedSet $destination, array $data, $aggregateFunction = self::AGGREGATE_SUM)
     {
         return $this->getConnection()->getClient()->zUnion($destination->getKey(), array_keys($data), array_values($data), $aggregateFunction);
     }

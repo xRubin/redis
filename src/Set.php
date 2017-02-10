@@ -1,11 +1,13 @@
 <?php
 namespace RedisWrapper;
 
+use RedisWrapper\Interfaces;
+
 /**
  * Class Set
  * @package RedisWrapper
  */
-class Set extends Entity
+class Set extends Entity implements Interfaces\Set
 {
     /**
      * @param string[] ...$values
@@ -62,10 +64,10 @@ class Set extends Entity
 
     /**
      * Gets the difference between this set and the given set(s) and returns it
-     * @param Set[] ...$sets
+     * @param Interfaces\Set[] ...$sets
      * @return mixed
      */
-    public function diff(Set ...$sets)
+    public function diff(Interfaces\Set ...$sets)
     {
         array_unshift($sets, $this);
         return call_user_func_array(
@@ -81,11 +83,11 @@ class Set extends Entity
 
     /**
      * Gets the difference between this set and the given set(s), stores it in a new set and returns it
-     * @param Set $destination
-     * @param Set[] ...$sets
-     * @return Set
+     * @param Interfaces\Set $destination
+     * @param Interfaces\Set[] ...$sets
+     * @return Interfaces\Set
      */
-    public function diffStore(Set $destination, Set ...$sets)
+    public function diffStore(Interfaces\Set $destination, Interfaces\Set ...$sets)
     {
         array_unshift($sets, $this);
         array_unshift($sets, $destination);
@@ -94,7 +96,7 @@ class Set extends Entity
                 $this->getConnection()->getClient(),
                 'sDiffStore'
             ],
-            array_map(function (Set $set) {
+            array_map(function (Interfaces\Set $set) {
                 return $set->getKey();
             }, $sets)
         );
@@ -103,10 +105,10 @@ class Set extends Entity
 
     /**
      * Gets the intersection between this set and the given set(s) and returns it
-     * @param Set[] ...$sets
+     * @param Interfaces\Set[] ...$sets
      * @return mixed
      */
-    public function intersect(Set ...$sets)
+    public function intersect(Interfaces\Set ...$sets)
     {
         array_unshift($sets, $this);
         return call_user_func_array(
@@ -114,7 +116,7 @@ class Set extends Entity
                 $this->getConnection()->getClient(),
                 'sInter'
             ],
-            array_map(function (Set $set) {
+            array_map(function (Interfaces\Set $set) {
                 return $set->getKey();
             }, $sets)
         );
@@ -122,11 +124,11 @@ class Set extends Entity
 
     /**
      * Gets the intersection between this set and the given set(s), stores it in a new set and returns it
-     * @param Set $destination
-     * @param Set[] ...$sets
-     * @return Set
+     * @param Interfaces\Set $destination
+     * @param Interfaces\Set[] ...$sets
+     * @return Interfaces\Set
      */
-    public function intersectStore(Set $destination, Set ...$sets)
+    public function intersectStore(Interfaces\Set $destination, Interfaces\Set ...$sets)
     {
         array_unshift($sets, $this);
         array_unshift($sets, $destination);
@@ -135,7 +137,7 @@ class Set extends Entity
                 $this->getConnection()->getClient(),
                 'sInterStore'
             ],
-            array_map(function (Set $set) {
+            array_map(function (Interfaces\Set $set) {
                 return $set->getKey();
             }, $sets)
         );
@@ -144,10 +146,10 @@ class Set extends Entity
 
     /**
      * Gets the union of this set and the given set(s) and returns it
-     * @param Set[] ...$sets
+     * @param Interfaces\Set[] ...$sets
      * @return mixed
      */
-    public function union(Set ...$sets)
+    public function union(Interfaces\Set ...$sets)
     {
         array_unshift($sets, $this);
         return call_user_func_array(
@@ -155,7 +157,7 @@ class Set extends Entity
                 $this->getConnection()->getClient(),
                 'sUnion'
             ],
-            array_map(function (Set $set) {
+            array_map(function (Interfaces\Set $set) {
                 return $set->getKey();
             }, $sets)
         );
@@ -163,11 +165,11 @@ class Set extends Entity
 
     /**
      * Gets the union of this set and the given set(s), stores it in a new set and returns it
-     * @param Set $destination
-     * @param Set[] ...$sets
-     * @return Set
+     * @param Interfaces\Set $destination
+     * @param Interfaces\Set[] ...$sets
+     * @return Interfaces\Set
      */
-    public function unionStore(Set $destination, Set ...$sets)
+    public function unionStore(Interfaces\Set $destination, Interfaces\Set ...$sets)
     {
         array_unshift($sets, $this);
         array_unshift($sets, $destination);
@@ -176,7 +178,7 @@ class Set extends Entity
                 $this->getConnection()->getClient(),
                 'sUnionStore'
             ],
-            array_map(function (Set $set) {
+            array_map(function (Interfaces\Set $set) {
                 return $set->getKey();
             }, $sets)
         );
@@ -185,11 +187,11 @@ class Set extends Entity
 
     /**
      * Moves an item from this redis set to another
-     * @param Set $destination the set to move the item to
+     * @param Interfaces\Set $destination the set to move the item to
      * @param mixed $value the item to move
      * @return boolean true if the item was moved successfully
      */
-    public function move(Set $destination, $value)
+    public function move(Interfaces\Set $destination, $value)
     {
         return $this->getConnection()->getClient()->sMove($this->getKey(), $destination->getKey(), $value);
     }

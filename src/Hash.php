@@ -1,18 +1,20 @@
 <?php
 namespace RedisWrapper;
 
+use RedisWrapper\Interfaces;
+
 /**
  * Class Hash
  * no multi
  * no scan
  * @package RedisWrapper
  */
-class Hash extends Entity
+class Hash extends Entity implements Interfaces\Hash
 {
     /**
      * @param string $name
      * @param mixed $value
-     * @return mixed
+     * @return int
      * @throws \ErrorException
      */
     public function __set($name, $value)
